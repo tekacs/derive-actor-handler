@@ -102,7 +102,7 @@ impl ActorHandlerMacroGenerator {
         let handler_function = self.get_handler_function();
         quote! {
             #[async_trait::async_trait]
-            trait #trait_name : ractor::Actor {
+            pub trait #trait_name : ractor::Actor {
                 #(#handles)*
 
                 #handler_function
