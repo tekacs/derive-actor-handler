@@ -51,7 +51,7 @@ fn enum_variant_to_handle_arguments(var: &Variant) -> TokenStream2 {
     if let Fields::Named(fields) = &var.fields {
         return arguments_from_named_fields(fields);
     }
-    quote! { &self, myself: ActorRef<<Self as ractor::Actor>::Msg>, state: &mut <Self as ractor::Actor>::State }
+    quote! { &self, myself: ractor::ActorRef<<Self as ractor::Actor>::Msg>, state: &mut <Self as ractor::Actor>::State }
 }
 
 fn arguments_from_named_fields(fields: &FieldsNamed) -> TokenStream2 {
@@ -60,7 +60,7 @@ fn arguments_from_named_fields(fields: &FieldsNamed) -> TokenStream2 {
         let ty = &field.ty;
         Some(quote! {#ident: #ty})
     });
-    quote! { &self, myself: ActorRef<<Self as ractor::Actor>::Msg>, state: &mut <Self as ractor::Actor>::State, #(#args),* }
+    quote! { &self, myself: ractor::ActorRef<<Self as ractor::Actor>::Msg>, state: &mut <Self as ractor::Actor>::State, #(#args),* }
 }
 
 fn get_field_name_list(fields: &Fields) -> TokenStream2 {
